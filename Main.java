@@ -16,7 +16,10 @@ public class Main implements Runnable, ActionListener{
   JTextField display;
 
   //password Variable
-  int password = 1234;
+  int password1 = 1;
+  int password2 = 2;
+  int password3 = 3;
+  int password4 = 4;
 
 
   // Method to assemble our GUI
@@ -104,13 +107,20 @@ public class Main implements Runnable, ActionListener{
     String command = e.getActionCommand();
 
     for(int i = 0; i < numberButtons.length; i++){
+
+      String star = "*";
       if(command.equals("" + i)){
-      display.setText("*");
+
+        int passAttempt = i;
       
-    }
-      String star = display.getText();
-      String stars = "*" + star; 
-      display.setText(stars);
+        display.setText(star);
+
+       if(command.equals("" + (i++))){
+         display.setText("" + star + star);
+       }
+      
+    } 
+    
     }
 
   }
