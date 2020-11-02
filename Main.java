@@ -16,10 +16,9 @@ public class Main implements Runnable, ActionListener{
   JTextField display;
 
   //password Variable
-  int password1 = 1;
-  int password2 = 2;
-  int password3 = 3;
-  int password4 = 4;
+  String password = "1234";
+  
+  String input = "";
 
 
   // Method to assemble our GUI
@@ -65,11 +64,12 @@ public class Main implements Runnable, ActionListener{
       numberButtons[i].addActionListener(this);
     }
 
-    //create the clear button
+    //create the clear button, add action listener and command
     clearButton = new JButton("CLEAR");
     clearButton.addActionListener(this);
     clearButton.setActionCommand("clear");
 
+    //create the enter button, add action listener and command
     enterButton = new JButton("ENTER");
     enterButton.addActionListener(this);
     enterButton.setActionCommand("enter");
@@ -106,20 +106,44 @@ public class Main implements Runnable, ActionListener{
     // get the command from the action
     String command = e.getActionCommand();
 
+
+    //create a for loop to run every time a button is clicked
     for(int i = 0; i < numberButtons.length; i++){
 
+      //get text from the display textfield
+      String starDisplay = display.getText();
+    
+      //create variable star to represent one star
       String star = "*";
+
+      //write an if statement to run every time a number button is clicked
       if(command.equals("" + i)){
 
-        int passAttempt = i;
-      
-        display.setText(star);
+        //add the button clicked to the input variable defined in class variables
+        input = input + i;
 
-       if(command.equals("" + (i++))){
-         display.setText("" + star + star);
+        //display the star on the screen
+        display.setText(starDisplay + star);
+
+        //if display is showing close, the nested if statement should clear the screen, display a star and run the usual if statement
+        if(starDisplay.equals("CLOSE")){
+          display.setText("*");
        }
       
-    } 
+       //write an else if statement to clear the display screen when the clear button is clicked
+      }else if(command.equals("clear")){
+        display.setText("");
+
+       //write an else if statement to run when the enter button is clicked
+      }else if(command.equals("enter")){
+
+        //compares the password typed in to the password variable defined above
+        if(input.equals(password)){
+          display.setText("OPEN");
+        }else{
+          display.setText("WRONG PIN");
+        }
+      }
     
     }
 
